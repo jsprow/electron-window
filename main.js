@@ -1,8 +1,9 @@
-const electron = require('electron'),
-	app = electron.app,
-	BrowserWindow = electron.BrowserWindow,
-	path = require('path'),
-	url = require('url')
+const electron = require('electron')
+const { ipcMain } = require('electron')
+const app = electron.app
+const BrowserWindow = electron.BrowserWindow
+const path = require('path')
+const url = require('url')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -13,7 +14,12 @@ global.path = app.getPath('userData')
 
 function createWindow() {
 	// Create the browser window.
-	mainWindow = new BrowserWindow({ width: 768, height: 768 })
+	mainWindow = new BrowserWindow({
+		webPreferences: { webSecurity: false },
+		width: 768,
+		height: 768,
+		alwaysOnTop: true
+	})
 
 	// and load the index.html of the app.
 	mainWindow.loadURL(
